@@ -13,7 +13,7 @@ const App = () => {
     }, []);
     return (
         <div>
-            <h1>Kilsundværet</h1>
+            <h1>Kilsundværet - wip</h1>
             {data && data.map((d) => <div key={d.sensorName}>{d.sensorName}: {d.value}</div>)}
         </div>
     );
