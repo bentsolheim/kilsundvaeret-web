@@ -58,8 +58,43 @@ type WindProps = {
     speed: number,
     direction: number
 }
+
 const Wind = (props: WindProps) => {
-    return <MetricWrapper><Label title="Vind"/>{props.speed} m/s ({props.direction})</MetricWrapper>
+    return <MetricWrapper>
+        <Label title="Vind"/>{props.speed} m/s <WindDirection value={props.direction}/>
+    </MetricWrapper>
+}
+
+const WindDirection = (props: ValueProps) => {
+    const dir = props.value;
+    const getDirectionKeyFromAngle = (angle: number) => {
+        const step = 25.0;
+        const base = step / 2
+        let dirKey = 'unknown';
+        if (angle > 360 - base || angle <= base) dirKey = 'north';
+        else if (angle > base && angle <= base + step) dirKey = 'north-east';
+        else if (angle > base + step && angle <= base + step * 2) dirKey = 'east';
+        else if (angle > base + step * 2 && angle <= base + step * 3) dirKey = 'south-east';
+        else if (angle > base + step * 3 && angle <= base + step * 4) dirKey = 'south';
+        else if (angle > base + step * 4 && angle <= base + step * 5) dirKey = 'south-west';
+        else if (angle > base + step * 5 && angle <= base + step * 6) dirKey = 'west';
+        else if (angle > base + step * 6 && angle <= base + step * 7) dirKey = 'north-west';
+        return dirKey;
+    }
+
+    const dirNames: Record<string, string> = {
+        'north': 'Nord',
+        'north-east': 'Nordøst',
+        'east': 'Øst',
+        'south-east': "Sørøst",
+        'south': 'Sør',
+        'south-west': 'Sørvest',
+        'west': 'Vest',
+        'north-west': 'Nordvest'
+    };
+    const dirName = dirNames[getDirectionKeyFromAngle(dir)];
+
+    return <>(fra {dirName.toLocaleLowerCase()})</>
 }
 
 const MissingMetric = () => {
