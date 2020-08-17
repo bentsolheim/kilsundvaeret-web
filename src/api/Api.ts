@@ -1,16 +1,25 @@
 import axios from 'axios'
 
-interface Response {
-    items: Array<SensorReading>
+interface Response<T> {
+    items: Array<T>
 }
 
-export interface SensorReading {
-    sensorName: string;
-    value: number;
+export interface WeatherReport {
+    metrics: Array<Metric>
 }
 
-export const fetchRecentReadings = async () => {
-    const resp = await axios.get<Response>('/api/v1/current-temp');
+export interface MetricType {
+    name: string
+    unit: string
+}
 
-    return resp.data.items;
+export interface Metric {
+    type: MetricType
+    value: number,
+    createdDate: number
+}
+
+export const fetchCurrentWeather = async () => {
+    const resp = await axios.get<Response<WeatherReport>>('/api/v1/reports/current-weather');
+    return resp.data.items[0];
 }

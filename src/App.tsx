@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {fetchRecentReadings, SensorReading} from './api/Api'
+import {fetchCurrentWeather, WeatherReport} from './api/Api'
+import {CurrentWeather} from "./components/CurrentWeather";
 
 const App = () => {
 
-    const [data, setData] = useState<SensorReading[] | undefined>(undefined);
+    const [weatherReport, setWeatherReport] = useState<WeatherReport | undefined>(undefined);
 
     useEffect(() => {
         (async () => {
-            setData(await fetchRecentReadings());
+            setWeatherReport(await fetchCurrentWeather());
         })()
     }, []);
+    const c = weatherReport ? <CurrentWeather weatherReport={weatherReport} /> : <div>Missing</div>
     return (
         <div>
-            <h1>Kilsundværet - wip</h1>
-            {data && data.map((d) => <div key={d.sensorName}>{d.sensorName}: {d.value}</div>)}
+            <h1>Kilsundværet</h1>
+            {c}
         </div>
     );
 }

@@ -1,0 +1,27 @@
+body {
+    font-size: 10px;
+}
+
+#root {
+    padding: .8em;
+}
+
+h1 {
+    margin-bottom: .5em;
+}
+
+.current-weather {
+    width: 100%;
+    border: .1em solid black;
+    padding: 1em;
+    border-radius: .3em;
+}
+
+.metric {
+    font-size: 1.5em;
+}
+
+.label {
+    display: inline;
+    font-weight: bold;
+}
