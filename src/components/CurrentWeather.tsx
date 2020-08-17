@@ -67,35 +67,20 @@ const Wind = (props: WindProps) => {
 
 const WindDirection = (props: ValueProps) => {
     const dir = props.value;
-    const getDirectionKeyFromAngle = (angle: number) => {
-        const step = 45.0;
-        const base = step / 2
-        let dirKey = 'unknown';
-        if (angle > 360 - base || angle <= base) dirKey = 'north';
-        else if (angle > base && angle <= base + step) dirKey = 'north-east';
-        else if (angle > base + step && angle <= base + step * 2) dirKey = 'east';
-        else if (angle > base + step * 2 && angle <= base + step * 3) dirKey = 'south-east';
-        else if (angle > base + step * 3 && angle <= base + step * 4) dirKey = 'south';
-        else if (angle > base + step * 4 && angle <= base + step * 5) dirKey = 'south-west';
-        else if (angle > base + step * 5 && angle <= base + step * 6) dirKey = 'west';
-        else if (angle > base + step * 6 && angle <= base + step * 7) dirKey = 'north-west';
-        return dirKey;
-    }
 
-    const dirNames: Record<string, string> = {
-        'north': 'Nord',
-        'north-east': 'Nordøst',
-        'east': 'Øst',
-        'south-east': "Sørøst",
-        'south': 'Sør',
-        'south-west': 'Sørvest',
-        'west': 'Vest',
-        'north-west': 'Nordvest'
+    const directions = [ "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N" ];
+    const names: Record<string, string> = {
+        'N': 'Nord',
+        'NE': 'Nordøst',
+        'E': 'Øst',
+        'SE': "Sørøst",
+        'S': 'Sør',
+        'SW': 'Sørvest',
+        'W': 'Vest',
+        'NW ': 'Nordvest'
     };
-    let dirKey = getDirectionKeyFromAngle(dir);
-    console.log(dirKey);
-    const dirName = dirNames[dirKey];
-    console.log(dirName);
+    let dirKey = directions[Math.round((dir % 360.0) / 45.0)];
+    const dirName = names[dirKey];
 
     return <>(fra {dirName.toLocaleLowerCase()})</>
 }
