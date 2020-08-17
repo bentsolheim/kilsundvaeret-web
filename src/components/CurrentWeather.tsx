@@ -77,10 +77,10 @@ const WindDirection = (props: ValueProps) => {
         'S': 'Sør',
         'SW': 'Sørvest',
         'W': 'Vest',
-        'NW ': 'Nordvest'
+        'NW': 'Nordvest'
     };
     let dirKey = directions[Math.round((dir % 360.0) / 45.0)];
-    const dirName = names[dirKey];
+    const dirName = names[dirKey] || 'Ukjent';
 
     return <>(fra {dirName.toLocaleLowerCase()})</>
 }
