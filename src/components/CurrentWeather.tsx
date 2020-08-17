@@ -68,7 +68,7 @@ const Wind = (props: WindProps) => {
 const WindDirection = (props: ValueProps) => {
     const dir = props.value;
     const getDirectionKeyFromAngle = (angle: number) => {
-        const step = 25.0;
+        const step = 45.0;
         const base = step / 2
         let dirKey = 'unknown';
         if (angle > 360 - base || angle <= base) dirKey = 'north';
@@ -92,7 +92,10 @@ const WindDirection = (props: ValueProps) => {
         'west': 'Vest',
         'north-west': 'Nordvest'
     };
-    const dirName = dirNames[getDirectionKeyFromAngle(dir)];
+    let dirKey = getDirectionKeyFromAngle(dir);
+    console.log(dirKey);
+    const dirName = dirNames[dirKey];
+    console.log(dirName);
 
     return <>(fra {dirName.toLocaleLowerCase()})</>
 }
